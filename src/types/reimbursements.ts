@@ -1,16 +1,17 @@
-export interface Reimbursement2 {
+export interface Reimbursement {
   month: number;
   year: number;
   amount: number;
   payments?: Payment[];
 }
 
+
 export interface Payment {
   name: string;
   date: string;
 }
 
-export interface Reimbursement {
+export interface AllPayment {
   legal_entity_edrpou: number
   period_month: number
   period_year: number
