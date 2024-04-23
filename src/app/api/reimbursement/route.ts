@@ -1,7 +1,7 @@
 import {NextRequest, NextResponse} from "next/server";
 import * as fs from "fs";
-import {Reimbursement} from "@/app/types/reimbursement";
-import {convertReimbursements} from "@/app/lib/convertReimbursements";
+import {Reimbursement} from "@/types/reimbursement";
+import {convertReimbursements} from "@/lib/convertReimbursements";
 
 export async function GET(request: NextRequest): Promise<Response> {
     const searchParams = request.nextUrl.searchParams;
