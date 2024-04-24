@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import {Reimbursement} from "@/types/reimbursements";
 import BarChart from "@/app/_components/bar-chart";
+import {Box, TextField, Typography} from "@mui/material";
 
 export default function Home() {
   const [reimbursements2022, setReimbursements2022]
@@ -9,10 +10,17 @@ export default function Home() {
   const [reimbursements2023, setReimbursements2023]
     = useState<Reimbursement[] | null>(null);
 
+  const [startMonth, setStartMonth] = useState<number>(1);
+  const [endMonth, setEndMonth] = useState<number>(12);
+
   useEffect(() => {
     const fetchData = async () => {
-      const response2022 = await fetch("http://localhost:3000/api/reimbursement?year=2022&startMonth=1&endMonth=12");
-      const response2023 = await fetch("http://localhost:3000/api/reimbursement?year=2023&startMonth=1&endMonth=12");
+      const response2022 = await fetch(
+        `http://localhost:3000/api/reimbursement?year=2022&startMonth=1&endMonth=12`
+      );
+      const response2023 = await fetch(
+        `http://localhost:3000/api/reimbursement?year=2023&startMonth=1&endMonth=12`
+      );
       const reimbursements2022Json = await response2022.json();
       const reimbursements2023Json = await response2023.json();
       setReimbursements2022(reimbursements2022Json);
@@ -22,6 +30,23 @@ export default function Home() {
     fetchData();
   }, []);
 
+  const filtered2022
+    = reimbursements2022?.filter((reimbursement) =>
+    reimbursement.month >= startMonth && reimbursement.month <= endMonth
+  ) as Reimbursement[];
+
+  const filtered2023
+    = reimbursements2023?.filter((reimbursement) =>
+    reimbursement.month >= startMonth && reimbursement.month <= endMonth
+  ) as Reimbursement[];
+
+  const handleStartTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setStartMonth(Number(event.target.value));
+  }
+
+  const handleEndTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEndMonth(Number(event.target.value));
+  }
 
   if (!reimbursements2022 || !reimbursements2023) {
     return <div>Loading...</div>;
@@ -29,7 +54,10 @@ export default function Home() {
 
   return (
     <main>
-      <BarChart reimbursements2022={reimbursements2022} reimbursements2023={reimbursements2023}  />
+      <Typography variant="h4">Графік суми відшкодувань по місяцяї за 2022 і 2023 роки</Typography>
+      <BarChart reimbursements2022={filtered2022} reimbursements2023={filtered2023}  />
+      <TextField type="number" value={startMonth} onChange={handleStartTimeChange} />
+      <TextField type="number" value={endMonth} onChange={handleEndTimeChange} />
     </main>
   );
 }
