@@ -9,6 +9,7 @@ export interface Reimbursement {
 export interface Payment {
   name: string;
   date: string;
+  amount: number;
 }
 
 export interface AllPayment {

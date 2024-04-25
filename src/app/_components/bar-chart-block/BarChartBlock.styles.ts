@@ -19,3 +19,9 @@ export const block = (height: number, color: string): SxProps<Theme> => ({
   backgroundColor: color,
   width: '30px',
 });
+
+export const tooltip = (color: string): SxProps<Theme> => ({
+  backgroundColor: color,
+  color: 'rgb(255,255,255)',
+  fontSize: '12px',
+});
