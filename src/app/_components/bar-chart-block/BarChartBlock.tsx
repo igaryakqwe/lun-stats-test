@@ -5,6 +5,7 @@ import { stringToRGB } from '@/utils/stringToRGB';
 import {convertAmount} from "@/utils/converAmount";
 import TooltipTitle from "@/app/_components/tooltip-title/TooltipTitle";
 import {convertDate} from "@/utils/convertDate";
+import {getMonth} from "@/utils/getMonth";
 
 interface BarChartProps {
   month: number;
@@ -24,7 +25,7 @@ const BarChartBlock: FC<BarChartProps> = ({ month, maxAmount, amount2023, amount
         <Stack
           flexDirection="column"
           justifyContent="flex-end"
-          sx={{ height: '100%' }}
+          sx={styles.bar}
         >
           <Tooltip
             slotProps={{
@@ -33,7 +34,7 @@ const BarChartBlock: FC<BarChartProps> = ({ month, maxAmount, amount2023, amount
             }}
             title={
               <TooltipTitle
-                amount={convertAmount(amount2022)}
+                amount={'Сума: ' + convertAmount(amount2022) + ' млн'}
                 date={convertDate(month, 2022)}
               />
             }
@@ -42,12 +43,12 @@ const BarChartBlock: FC<BarChartProps> = ({ month, maxAmount, amount2023, amount
           >
             <Box sx={styles.block(height2022, color)} />
           </Tooltip>
-          <Typography fontSize="smaller" fontWeight="600">2022</Typography>
+          <Typography sx={styles.year}>2022</Typography>
         </Stack>
         <Stack
           flexDirection="column"
           justifyContent="flex-end"
-          sx={{ height: '100%' }}
+          sx={styles.bar}
         >
           <Tooltip
             slotProps={{
@@ -56,7 +57,7 @@ const BarChartBlock: FC<BarChartProps> = ({ month, maxAmount, amount2023, amount
             }}
             title={
               <TooltipTitle
-                amount={convertAmount(amount2023)}
+                amount={'Сума: ' + convertAmount(amount2023) + ' млн'}
                 date={convertDate(month, 2023)}
               />
             }
@@ -65,10 +66,10 @@ const BarChartBlock: FC<BarChartProps> = ({ month, maxAmount, amount2023, amount
           >
             <Box sx={styles.block(height2023, color)} />
           </Tooltip>
-          <Typography fontSize="smaller" fontWeight="600">2023</Typography>
+          <Typography sx={styles.year}>2023</Typography>
         </Stack>
       </Box>
-      <Typography variant="h6">{month}</Typography>
+      <Typography sx={styles.month}>{getMonth(month)}</Typography>
     </Box>
   );
 };

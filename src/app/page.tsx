@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import {Reimbursement} from "@/types/reimbursements";
 import BarChart from "@/app/_components/bar-chart";
 import {Box, TextField, Typography} from "@mui/material";
+import * as styles from './_components/mainPage.styles';
 
 export default function Home() {
   const [reimbursements2022, setReimbursements2022]
@@ -53,11 +54,13 @@ export default function Home() {
   }
 
   return (
-    <main>
-      <Typography variant="h4">Графік суми відшкодувань по місяцяї за 2022 і 2023 роки</Typography>
+    <Box component="main">
+      <Typography sx={styles.barHeader}>Графік суми відшкодувань по місяцяї за 2022 і 2023 роки</Typography>
       <BarChart reimbursements2022={filtered2022} reimbursements2023={filtered2023}  />
-      <TextField type="number" value={startMonth} onChange={handleStartTimeChange} />
-      <TextField type="number" value={endMonth} onChange={handleEndTimeChange} />
-    </main>
+      <TextField type="number" inputProps={{ min: 1, max: 12 }} value={startMonth} onChange={handleStartTimeChange} />
+      <TextField type="number" inputProps={{ min: 1, max: 12 }} value={endMonth} onChange={handleEndTimeChange} />
+
+      <Typography sx={styles.barHeader}>Топ 10 надавачів послуг</Typography>
+    </Box>
   );
 }
