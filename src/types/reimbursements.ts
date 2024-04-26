@@ -2,14 +2,6 @@ export interface Reimbursement {
   month: number;
   year: number;
   amount: number;
-  payments?: Payment[];
-}
-
-
-export interface Payment {
-  name: string;
-  date: string;
-  amount: number;
 }
 
 export interface AllPayment {

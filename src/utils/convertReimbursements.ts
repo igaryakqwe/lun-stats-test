@@ -1,4 +1,4 @@
-import {AllPayment, Payment, Reimbursement} from "@/types/reimbursements";
+import {AllPayment, Reimbursement} from "@/types/reimbursements";
 
 export const isMonthPresent = (reimbursements: Reimbursement[], month: number): boolean => {
   return reimbursements.some((reimbursement) => reimbursement.month === month)
