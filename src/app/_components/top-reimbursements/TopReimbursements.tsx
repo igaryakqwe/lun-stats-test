@@ -1,6 +1,5 @@
 import {FC, useEffect, useState} from 'react';
 import {Box, CircularProgress, TextField, Typography} from '@mui/material';
-import * as styles from "@/app/_components/mainPage.styles";
 import {Reimbursement} from "@/types/reimbursements";
 import BarChart from "@/app/_components/bar-chart";
 import {TopReimbursement} from "@/types/top-reimbursements";
@@ -61,8 +60,11 @@ const TopReimbursements: FC<TopReimbursementsProps> = () => {
   }
   return (
     <Box component="section">
-      <Typography sx={styles.barHeader}>Топ 10 надавачів послуг</Typography>
-      <BarChart reimbursements2022={filtered2022} reimbursements2023={filtered2023}  />
+      <BarChart
+        headerText="Топ 10 надавачів послуг"
+        reimbursements2022={filtered2022}
+        reimbursements2023={filtered2023}
+      />
       <TextField type="number" inputProps={{ min: 1, max: 12 }} value={startMonth} onChange={handleStartTimeChange} />
       <TextField type="number" inputProps={{ min: 1, max: 12 }} value={endMonth} onChange={handleEndTimeChange} />
     </Box>

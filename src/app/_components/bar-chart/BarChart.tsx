@@ -9,13 +9,15 @@ import {calcPoints} from "@/utils/calcPoints";
 import {TopReimbursement} from "@/types/top-reimbursements";
 
 interface BarChartProps {
+  headerText: string;
   reimbursements2022: TopReimbursement[];
   reimbursements2023: TopReimbursement[];
 }
 
 const BarChart: FC<BarChartProps> = ({
- reimbursements2022,
- reimbursements2023
+  headerText,
+  reimbursements2022,
+  reimbursements2023
 }) => {
   const sortedReimbursements2022 = reimbursements2022.sort(sortFunc);
   const maxAmount =
@@ -25,30 +27,38 @@ const BarChart: FC<BarChartProps> = ({
 
   return (
     <Box sx={styles.wrapper}>
-      <Box sx={styles.sideBar}>{!isNaN(points[1]) && points.map(point =>
+      <Typography sx={styles.barHeader}>{headerText}</Typography>
+      <Box sx={styles.barWrapper}>
+        <Box sx={styles.sideBar}>{!isNaN(points[1]) && points.map(point =>
           <Typography key={point}>{point}</Typography>
         )}
-      </Box>
-      <Box sx={styles.chartWrapper}>
-        {sortedReimbursements2022.map((reimbursement: TopReimbursement, index) => (
-          <Grow
-            key={index}
-            in={true}
-            style={{ transformOrigin: 'bottom' }}
-            timeout={1000}
-          >
-            <Box sx={styles.chart}>
-              <BarChartBlock
-                month={reimbursement.month}
-                maxAmount={maxAmount}
-                amount2022={reimbursement.amount}
-                amount2023={reimbursements2023[index].amount}
-                topProviders2022={reimbursement.topProviders}
-                topProviders2023={reimbursements2023[index].topProviders}
-              />
-            </Box>
-          </Grow>
-        ))}
+        </Box>
+        <Box sx={styles.chartWrapper}>
+          {points.map((point, index) => {
+            const coef = point / maxLine * 100;
+            const top = coef;
+            return <Box key={point} sx={styles.line(top)} />
+          })}
+          {sortedReimbursements2022.map((reimbursement: TopReimbursement, index) => (
+            <Grow
+              key={index}
+              in={true}
+              style={{ transformOrigin: 'bottom' }}
+              timeout={1000}
+            >
+              <Box sx={styles.chart}>
+                <BarChartBlock
+                  month={reimbursement.month}
+                  maxAmount={maxAmount}
+                  amount2022={reimbursement.amount}
+                  amount2023={reimbursements2023[index].amount}
+                  topProviders2022={reimbursement.topProviders}
+                  topProviders2023={reimbursements2023[index].topProviders}
+                />
+              </Box>
+            </Grow>
+          ))}
+        </Box>
       </Box>
     </Box>
   );

@@ -25,10 +25,10 @@ const BarChartBlock: FC<BarChartProps> = ({
   topProviders2022,
   topProviders2023
 }) => {
-  const color = stringToRGB(amount2022.toString());
   const height2023 = (amount2023 / maxAmount) * 100;
   const height2022 = (amount2022 / maxAmount) * 100;
   const display = topProviders2022 ? 'none' : 'block';
+  const color = topProviders2022 ? 'transparent' : stringToRGB(amount2022.toString());
 
   return (
     <Box sx={styles.wrapper}>
@@ -45,7 +45,7 @@ const BarChartBlock: FC<BarChartProps> = ({
             }}
             title={
               <TooltipTitle
-                amount={convertAmount(amount2022)}
+                amount={amount2022}
                 date={convertDate(month, 2022)}
               />
             }
@@ -57,7 +57,7 @@ const BarChartBlock: FC<BarChartProps> = ({
                 const providerColor = stringToRGB((provider.name + 'ccc').toString());
                 const providerHeight = (provider.amount / amount2022) * 100;
                 return (
-                  <Tooltip title={<TooltipTitle name={provider.name} />} key={provider.name}>
+                  <Tooltip title={<TooltipTitle name={provider.name} amount={provider.amount} />} key={provider.name}>
                     <Box key={provider.name} sx={styles.block(providerHeight, providerColor)} />
                   </Tooltip>
                 )}
@@ -78,7 +78,7 @@ const BarChartBlock: FC<BarChartProps> = ({
             }}
             title={
               <TooltipTitle
-                amount={convertAmount(amount2023)}
+                amount={amount2023}
                 date={convertDate(month, 2023)}
               />
             }
@@ -90,7 +90,7 @@ const BarChartBlock: FC<BarChartProps> = ({
                 const providerColor = stringToRGB((provider.name + 'ccc').toString());
                 const providerHeight = (provider.amount / amount2023) * 100;
                 return (
-                  <Tooltip title={<TooltipTitle name={provider.name} />} key={provider.name}>
+                  <Tooltip title={<TooltipTitle name={provider.name} amount={provider.amount} />} key={provider.name}>
                     <Box key={provider.name} sx={styles.block(providerHeight, providerColor)} />
                   </Tooltip>
                 )}

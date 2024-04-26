@@ -1,8 +1,8 @@
 export const roundNumber = (num: number): number => {
-  const number = num.toString();
-  if (+number[1] > 4) {
-    return +(+number[0] + 1 + '00');
+  const remainder = num % 50;
+  if (remainder >= 25) {
+    return num + 50 - remainder;
   } else {
-    return +(+number[0] + '50');
+    return num - remainder;
   }
 }

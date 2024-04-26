@@ -41,7 +41,12 @@ export const year: SxProps<Theme> = {
   fontSize: '13px',
   fontWeight: 600,
   '@media (max-width: 855px)': {
-    fontSize: '10px'
+    fontSize: '10px',
+    mt: '10px'
+  },
+  '@media (max-width: 600px)': {
+    fontSize: '10px',
+    mt: '13px'
   }
 };
 
