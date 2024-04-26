@@ -1,3 +1,4 @@
+'use client'
 import { FC } from 'react';
 import {Box, Grow, Typography} from '@mui/material';
 import * as styles from './BarChart.styles';

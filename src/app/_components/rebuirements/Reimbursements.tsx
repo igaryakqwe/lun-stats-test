@@ -1,3 +1,4 @@
+'use client'
 import {FC, useEffect, useState} from 'react';
 import {Box, CircularProgress, Stack, TextField, Typography} from '@mui/material';
 import {Reimbursement} from "@/types/reimbursements";
@@ -5,31 +6,17 @@ import BarChart from "@/app/_components/bar-chart";
 import {TopReimbursement} from "@/types/top-reimbursements";
 import MonthSelector from "@/app/_components/month-selector/MonthSelector";
 
-const Reimbursements: FC = () => {
-  const [reimbursements2022, setReimbursements2022]
-    = useState<Reimbursement[] | null>(null);
-  const [reimbursements2023, setReimbursements2023]
-    = useState<Reimbursement[] | null>(null);
+export interface ReimbursementsProps {
+  reimbursements2022: Reimbursement[];
+  reimbursements2023: Reimbursement[];
+}
 
+const Reimbursements: FC<ReimbursementsProps> = ({
+  reimbursements2022,
+  reimbursements2023
+}) => {
   const [startMonth, setStartMonth] = useState<number>(1);
   const [endMonth, setEndMonth] = useState<number>(12);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response2022 = await fetch(
-        `/api/reimbursement?year=2022`
-      );
-      const response2023 = await fetch(
-        `/api/reimbursement?year=2023`
-      );
-      const reimbursements2022Json = await response2022.json();
-      const reimbursements2023Json = await response2023.json();
-      setReimbursements2022(reimbursements2022Json);
-      setReimbursements2023(reimbursements2023Json);
-    };
-
-    fetchData();
-  }, []);
 
   const filtered2022
     = reimbursements2022?.filter((reimbursement) =>
@@ -40,14 +27,6 @@ const Reimbursements: FC = () => {
     = reimbursements2023?.filter((reimbursement) =>
     reimbursement.month >= startMonth && reimbursement.month <= endMonth
   ) as TopReimbursement[];
-
-  if (!reimbursements2022 || !reimbursements2023) {
-    return (
-      <Box component="section">
-        <CircularProgress />
-      </Box>
-    );
-  }
 
   return (
     <Box component="section">
