@@ -27,13 +27,14 @@ export const block = (height: number, color: string): SxProps<Theme> => ({
   width: '30px',
   '@media (max-width: 855px)': {
     width: '20px'
-  }
+  },
 });
 
-export const tooltip = (color: string): SxProps<Theme> => ({
+export const tooltip = (color: string, display: string): SxProps<Theme> => ({
   backgroundColor: color,
   color: 'rgb(255,255,255)',
   fontSize: '12px',
+  display,
 });
 
 export const year: SxProps<Theme> = {

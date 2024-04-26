@@ -41,6 +41,7 @@ export const convertTopReimbursements = (
       })
     } else {
       const monthIndex = res.findIndex((resReimbursement) => resReimbursement.month === reimbursement.period_month)
+      res[monthIndex].topProviders = res[monthIndex].topProviders.sort((a, b) => a.amount - b.amount);
       res[monthIndex].amount = res[monthIndex].topProviders.reduce((acc, provider) => acc + provider.amount, 0);
     }
   }

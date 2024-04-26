@@ -1,23 +1,34 @@
-import {FC, useEffect, useState} from 'react';
-import {Box, Typography, Grow, Stack, Collapse, Tooltip} from '@mui/material';
+import { FC } from 'react';
+import {Box, Typography, Stack, Tooltip} from '@mui/material';
 import * as styles from './BarChartBlock.styles';
 import { stringToRGB } from '@/utils/stringToRGB';
 import {convertAmount} from "@/utils/converAmount";
 import TooltipTitle from "@/app/_components/tooltip-title/TooltipTitle";
 import {convertDate} from "@/utils/convertDate";
 import {getMonth} from "@/utils/getMonth";
+import {TopProvider} from "@/types/top-reimbursements";
 
 interface BarChartProps {
   month: number;
   maxAmount: number;
   amount2022: number;
   amount2023: number;
+  topProviders2022?: TopProvider[];
+  topProviders2023?: TopProvider[];
 }
 
-const BarChartBlock: FC<BarChartProps> = ({ month, maxAmount, amount2023, amount2022 }) => {
+const BarChartBlock: FC<BarChartProps> = ({
+  month,
+  maxAmount,
+  amount2023,
+  amount2022,
+  topProviders2022,
+  topProviders2023
+}) => {
   const color = stringToRGB(amount2022.toString());
   const height2023 = (amount2023 / maxAmount) * 100;
   const height2022 = (amount2022 / maxAmount) * 100;
+  const display = topProviders2022 ? 'none' : 'block';
 
   return (
     <Box sx={styles.wrapper}>
@@ -29,19 +40,29 @@ const BarChartBlock: FC<BarChartProps> = ({ month, maxAmount, amount2023, amount
         >
           <Tooltip
             slotProps={{
-              tooltip: { sx: styles.tooltip(color) },
+              tooltip: { sx: styles.tooltip(color, display) },
               arrow: { sx: { color: color }},
             }}
             title={
               <TooltipTitle
-                amount={'Сума: ' + convertAmount(amount2022) + ' млн'}
+                amount={convertAmount(amount2022)}
                 date={convertDate(month, 2022)}
               />
             }
             arrow
             placement="top-end"
           >
-            <Box sx={styles.block(height2022, color)} />
+            <Box sx={styles.block(height2022, color)}>
+              {topProviders2022 && topProviders2022.map((provider, index) => {
+                const providerColor = stringToRGB((provider.name + 'ccc').toString());
+                const providerHeight = (provider.amount / amount2022) * 100;
+                return (
+                  <Tooltip title={<TooltipTitle name={provider.name} />} key={provider.name}>
+                    <Box key={provider.name} sx={styles.block(providerHeight, providerColor)} />
+                  </Tooltip>
+                )}
+              )}
+            </Box>
           </Tooltip>
           <Typography sx={styles.year}>2022</Typography>
         </Stack>
@@ -52,19 +73,29 @@ const BarChartBlock: FC<BarChartProps> = ({ month, maxAmount, amount2023, amount
         >
           <Tooltip
             slotProps={{
-              tooltip: { sx: styles.tooltip(color) },
+              tooltip: { sx: styles.tooltip(color, display) },
               arrow: { sx: { color: color }},
             }}
             title={
               <TooltipTitle
-                amount={'Сума: ' + convertAmount(amount2023) + ' млн'}
+                amount={convertAmount(amount2023)}
                 date={convertDate(month, 2023)}
               />
             }
             arrow
             placement="top-start"
           >
-            <Box sx={styles.block(height2023, color)} />
+            <Box sx={styles.block(height2023, color)}>
+              {topProviders2023 && topProviders2023.map((provider, index) => {
+                const providerColor = stringToRGB((provider.name + 'ccc').toString());
+                const providerHeight = (provider.amount / amount2023) * 100;
+                return (
+                  <Tooltip title={<TooltipTitle name={provider.name} />} key={provider.name}>
+                    <Box key={provider.name} sx={styles.block(providerHeight, providerColor)} />
+                  </Tooltip>
+                )}
+              )}
+            </Box>
           </Tooltip>
           <Typography sx={styles.year}>2023</Typography>
         </Stack>
