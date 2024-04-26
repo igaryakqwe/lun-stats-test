@@ -1,16 +1,6 @@
 import { SxProps, Theme } from "@mui/material";
 
 
-export const wrapper: SxProps<Theme> = {
-  '@media (max-width: 1054px)': {
-    transform: 'scale(0.8)',
-  },
-  '@media (max-width: 600px)': {
-    transform: 'scale(0.55)',
-  },
-  transition: 'transform 0.5s',
-};
-
 export const barWrapper: SxProps<Theme> = {
   display: 'flex',
   p: '10px',

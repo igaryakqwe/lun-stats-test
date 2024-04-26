@@ -26,7 +26,7 @@ const BarChart: FC<BarChartProps> = ({
   const points = calcPoints(maxLine)
 
   return (
-    <Box sx={styles.wrapper}>
+    <>
       <Typography sx={styles.barHeader}>{headerText}</Typography>
       <Box sx={styles.barWrapper}>
         <Box sx={styles.sideBar}>{!isNaN(points[1]) && points.map(point =>
@@ -60,7 +60,7 @@ const BarChart: FC<BarChartProps> = ({
           ))}
         </Box>
       </Box>
-    </Box>
+    </>
   );
 };
 
