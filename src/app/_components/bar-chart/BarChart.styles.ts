@@ -22,6 +22,7 @@ export const chartWrapper: SxProps<Theme> = {
   width: '100%',
   display: 'flex',
   justifyContent: 'center',
+  alignItems: 'flex-end',
   gap: '20px',
   '@media (max-width: 855px)': {
     gap: '10px',

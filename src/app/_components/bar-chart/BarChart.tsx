@@ -1,13 +1,14 @@
 'use client'
-import { FC } from 'react';
+import {FC} from 'react';
 import {Box, Grow, Typography} from '@mui/material';
 import * as styles from './BarChart.styles';
 import BarChartBlock from "@/app/_components/bar-chart-block";
-import { sortFunc } from "@/utils/sortFunc";
+import {sortFunc} from "@/utils/sortFunc";
 import {convertAmount} from "@/utils/converAmount";
 import {roundNumber} from "@/utils/roundNumber";
 import {calcPoints} from "@/utils/calcPoints";
-import {TopReimbursement} from "@/types/top-reimbursements";
+import {TopReimbursement} from "@/types/reimbursements";
+import {AnimatePresence, motion} from "framer-motion";
 
 interface BarChartProps {
   headerText: string;
@@ -21,8 +22,9 @@ const BarChart: FC<BarChartProps> = ({
   reimbursements2023
 }) => {
   const sortedReimbursements2022 = reimbursements2022.sort(sortFunc);
+  const mergedReimbursements = [...reimbursements2022, ...reimbursements2023];
   const maxAmount =
-    Math.max(...[...reimbursements2022, ...reimbursements2023].map((reimbursement) => reimbursement.amount));
+    Math.max(...mergedReimbursements.map((reimbursement) => reimbursement.amount));
   const maxLine = roundNumber(Number(convertAmount(maxAmount)));
   const points = calcPoints(maxLine)
 
@@ -36,8 +38,7 @@ const BarChart: FC<BarChartProps> = ({
         </Box>
         <Box sx={styles.chartWrapper}>
           {points.map((point, index) => {
-            const coef = point / maxLine * 100;
-            const top = coef;
+            const top = point / maxLine * 100;
             return <Box key={point} sx={styles.line(top)} />
           })}
           {sortedReimbursements2022.map((reimbursement: TopReimbursement, index) => (

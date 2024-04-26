@@ -2,11 +2,10 @@ import { FC } from 'react';
 import {Box, Typography, Stack, Tooltip} from '@mui/material';
 import * as styles from './BarChartBlock.styles';
 import { stringToRGB } from '@/utils/stringToRGB';
-import {convertAmount} from "@/utils/converAmount";
 import TooltipTitle from "@/app/_components/tooltip-title/TooltipTitle";
 import {convertDate} from "@/utils/convertDate";
 import {getMonth} from "@/utils/getMonth";
-import {TopProvider} from "@/types/top-reimbursements";
+import {TopProvider} from "@/types/reimbursements";
 
 interface BarChartProps {
   month: number;
@@ -57,7 +56,7 @@ const BarChartBlock: FC<BarChartProps> = ({
                 const providerColor = stringToRGB((provider.name + 'ccc').toString());
                 const providerHeight = (provider.amount / amount2022) * 100;
                 return (
-                  <Tooltip title={<TooltipTitle name={provider.name} amount={provider.amount} />} key={provider.name}>
+                  <Tooltip title={<TooltipTitle name={provider.name} amount={provider.amount} />} arrow key={provider.name}>
                     <Box key={provider.name} sx={styles.block(providerHeight, providerColor)} />
                   </Tooltip>
                 )}
