@@ -1,17 +1,19 @@
 'use client'
-import {FC, useEffect, useState} from 'react';
-import {Box, CircularProgress, Stack, TextField, Typography} from '@mui/material';
+import {FC, useState} from 'react';
+import {Box} from '@mui/material';
 import {Reimbursement} from "@/types/reimbursements";
 import BarChart from "@/app/_components/bar-chart";
-import {TopReimbursement} from "@/types/top-reimbursements";
+import {TopReimbursement} from "@/types/reimbursements";
 import MonthSelector from "@/app/_components/month-selector/MonthSelector";
 
 export interface ReimbursementsProps {
+  name: string;
   reimbursements2022: Reimbursement[];
   reimbursements2023: Reimbursement[];
 }
 
-const Reimbursements: FC<ReimbursementsProps> = ({
+const Chart: FC<ReimbursementsProps> = ({
+  name,
   reimbursements2022,
   reimbursements2023
 }) => {
@@ -31,7 +33,7 @@ const Reimbursements: FC<ReimbursementsProps> = ({
   return (
     <Box component="section">
       <BarChart
-        headerText="Графік суми відшкодувань по місяцях за 2022 і 2023 роки"
+        headerText={name}
         reimbursements2022={filtered2022}
         reimbursements2023={filtered2023}
       />
@@ -45,4 +47,4 @@ const Reimbursements: FC<ReimbursementsProps> = ({
   );
 };
 
-export default Reimbursements;
+export default Chart;

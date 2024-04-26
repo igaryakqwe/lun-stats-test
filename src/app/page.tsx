@@ -1,6 +1,5 @@
 import {Box, CircularProgress} from "@mui/material";
-import Reimbursements from "@/app/_components/rebuirements/Reimbursements";
-import TopReimbursements from "@/app/_components/top-reimbursements/TopReimbursements";
+import Chart from "@/app/_components/chart/Chart";
 import fs from "fs";
 import {AllPayment} from "@/types/reimbursements";
 import {convertReimbursements} from "@/utils/convertReimbursements";
@@ -24,11 +23,13 @@ export default function Home() {
 
   return (
     <Box component="main">
-      <Reimbursements
+      <Chart
+        name="Графік суми відшкодувань по місяцях за 2022 і 2023 роки"
         reimbursements2022={convertReimbursements(reimbursements2022)}
         reimbursements2023={convertReimbursements(reimbursements2023, 2023)}
       />
-      <TopReimbursements
+      <Chart
+        name="Топ 10 надавачів послуг"
         reimbursements2022={convertTopReimbursements(reimbursements2022)}
         reimbursements2023={convertTopReimbursements(reimbursements2023, 2023)}
       />

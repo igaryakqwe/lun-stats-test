@@ -4,6 +4,15 @@ export interface Reimbursement {
   amount: number;
 }
 
+export interface TopReimbursement extends Reimbursement {
+  topProviders: TopProvider[];
+}
+
+export interface TopProvider {
+  name: string;
+  amount: number;
+}
+
 export interface AllPayment {
   legal_entity_edrpou: number
   period_month: number
