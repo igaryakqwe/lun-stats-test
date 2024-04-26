@@ -20,10 +20,10 @@ const TopReimbursements: FC<TopReimbursementsProps> = () => {
   useEffect(() => {
     const fetchData = async () => {
       const response2022 = await fetch(
-        `http://localhost:3000/api/reimbursement/top?year=2022`
+        `/api/reimbursement/top?year=2022`
       );
       const response2023 = await fetch(
-        `http://localhost:3000/api/reimbursement/top?year=2023`
+        `/api/reimbursement/top?year=2023`
       );
       const reimbursements2022Json = await response2022.json();
       const reimbursements2023Json = await response2023.json();
